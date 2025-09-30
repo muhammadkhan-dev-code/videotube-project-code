@@ -22,7 +22,7 @@ npm install
 ### Running the Server
 
 ```sh
-npm start
+npm run dev
 ```
 
 ### Project Structure
