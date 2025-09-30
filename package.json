@@ -1,0 +1,28 @@
+{
+  "name": "web-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config src/index.js"
+
+  },
+  "keywords": [
+    "javascript",
+    "complete project",
+    "backend"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "A web project using JavaScript and backend technologies",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.3"
+  }
+}
