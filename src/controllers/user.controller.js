@@ -1,11 +1,11 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/apiError.js";
 import { User } from "../models/user.model.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullName, email, username, password, avatar } = req.body;
+  const { fullName, email, username, password } = req.body;
 
   if (
     [fullName, email, username, password].some((field) => field?.trim() === "")
@@ -22,7 +22,15 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const avatarLocalPath = req.files?.avatar[0]?.path;
 
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  let coverImageLocalPath;
+  if (
+    req.files &&
+    Array.isArray(req.files.coverImage) &&
+    req.files.coverImage.length > 0
+  ) {
+    coverImageLocalPath = req.files.coverImage[0].path;
+  }
 
   if (!avatarLocalPath) {
     throw new ApiError("Avatar is required", 400);
@@ -43,9 +51,9 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
 
-  const createdUser = await newUser
-    .findById(newUser._id)
-    .select("-password -refreshToken ");
+  const createdUser = await User.findById(newUser._id).select(
+    "-password -refreshToken "
+  );
 
   if (!createdUser) {
     throw new ApiError("Something went wrong while fetching created user", 500);
