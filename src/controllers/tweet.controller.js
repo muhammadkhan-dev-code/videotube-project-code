@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createTweet = asyncHandler(async (req, res) => {
-  //TODO: create tweet
+
   const { content } = req.body;
   if (!content || content.trim() === "") {
     throw new ApiError(400, "Content is required");
@@ -29,7 +29,7 @@ const createTweet = asyncHandler(async (req, res) => {
 
 const getUserTweets = asyncHandler(async (req, res) => {
   const { userId } = req.params;
-  if (!userId || !isValidObjectId(userId)) {
+  if (!userId || !mongoose.Types.ObjectId.isValidObjectId(userId)) {
     throw new ApiError(400, "Invalid userId");
   }
 
@@ -45,14 +45,13 @@ const getUserTweets = asyncHandler(async (req, res) => {
 });
 
 const updateTweet = asyncHandler(async (req, res) => {
-  //TODO: update tweet
   const { tweetId } = req.params;
   const { content } = req.body;
 
   if (!tweetId || !isValidObjectId(tweetId)) {
     throw new ApiError(400, "Invalid tweetId");
   }
-  // update the content of tweet
+ 
 
   const updateTweet = await Tweet.findOneAndUpdate(
     { _id: tweetId, owner: req.user._id },
@@ -71,7 +70,7 @@ const updateTweet = asyncHandler(async (req, res) => {
 
 const deleteTweet = asyncHandler(async (req, res) => {
   const { tweetId } = req.params;
-  if (!tweetId || !isValidObjectId(tweetId)) {
+  if (!tweetId || !mongoose.Types.ObjectId.isValidObjectId(tweetId)) {
     throw new ApiError(400, "Invalid tweetId");
   }
   const tweet = await Tweet.findOneAndDelete({
