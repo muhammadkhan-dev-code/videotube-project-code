@@ -29,6 +29,8 @@ router.route("/register").post(
   registerUser
 );
 
+// localhost:3000/users/login
+
 router.route("/login").post(loginUser);
 
 router.route("/logout").post(verifyJWT, logoutUser);
