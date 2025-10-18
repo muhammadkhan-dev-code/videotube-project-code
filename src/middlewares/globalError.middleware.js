@@ -1,4 +1,4 @@
-export const errorHandler = (err, _req, res, _next) => {
+ const errorHandler = (err, _req, res, _next) => {
   const status = err.statusCode || err.status || 500;
   const message = err.message || "Internal Server Error";
   const errors = err.errors || undefined;
@@ -14,3 +14,5 @@ export const errorHandler = (err, _req, res, _next) => {
     errors,
   });
 };
+
+export default errorHandler;

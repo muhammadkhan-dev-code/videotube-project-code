@@ -37,7 +37,7 @@ import likeRouter from "./routes/like.route.js";
 import playlistRouter from "./routes/playlist.route.js";
 import dashboardRouter from "./routes/dashboard.route.js";
 import subscribeptionRouter from "./routes/subscription.route.js";
-import healthrouter from "./routes/health.route.js";
+import healthrouter from "./routes/healthcheck.route.js";
 import tweetRouter from "./routes/tweet.route.js";
 
 
