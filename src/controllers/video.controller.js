@@ -111,7 +111,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
     isPublished: true,
   });
 
-  return res.status(200).json(200, "video published successFully");
+  return res.status(200).json(200, "video published successFully" ,video);
 });
 
 const getVideoById = asyncHandler(async (req, res) => {
@@ -199,7 +199,7 @@ const updateVideo = asyncHandler(async (req, res) => {
 
 const deleteVideo = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
-  //TODO: delete video
+
   if (!videoId || !isValidObjectId(videoId)) {
     throw new ApiError("Invalid videoId", 400);
   }
@@ -216,7 +216,7 @@ const deleteVideo = asyncHandler(async (req, res) => {
 
   await Video.findByIdAndDelete(videoId);
 
-  // cleanup related likes and comments
+ 
   await Promise.all([
     Like.deleteMany({ video: videoId }),
     Comment.deleteMany({ video: videoId }),

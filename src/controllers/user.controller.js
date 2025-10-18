@@ -316,7 +316,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         username: username?.toLowerCase(),
       },
     },
-    //  total subscriber through channel
+ 
     {
       $lookup: {
         from: "subscriptions",

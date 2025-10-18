@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose";
+import mongoose from "mongoose";
 import { User } from "../models/user.model.js";
 import { Subscription } from "../models/subscription.model.js";
 import { ApiError } from "../utils/apiError.js";
@@ -24,7 +24,7 @@ const toggleSubscription = asyncHandler(async (req, res) => {
   if (!channelUser) {
     throw new ApiError(400, "Channel Not Found");
   }
-  // try find existing subscription (support common field names)
+ 
   const existing = await Subscription.findOne({
     $or: [
       { channel: channelId, subscriber: subscriberId },
@@ -34,7 +34,7 @@ const toggleSubscription = asyncHandler(async (req, res) => {
   });
 
   if (existing) {
-    // unsubscribe
+    
     await Subscription.findByIdAndDelete(existing._id);
     return res
       .status(200)
@@ -58,7 +58,6 @@ const toggleSubscription = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Subscription toggled successfully", paylaod));
 });
 
-// controller to return subscriber list of a channel
 const getUserChannelSubscribers = asyncHandler(async (req, res) => {
   const { channelId } = req.params;
   if (!channelId || !mongoose.Types.ObjectId.isValidObjectId(channelId)) {
