@@ -22,6 +22,7 @@ router
     .patch(updatePlaylist)
     .delete(deletePlaylist);
 
+    //  localhost:3000/add/1234/2345
 router.route("/add/:videoId/:playlistId").patch(addVideoToPlaylist);
 router.route("/remove/:videoId/:playlistId").patch(removeVideoFromPlaylist);
 
